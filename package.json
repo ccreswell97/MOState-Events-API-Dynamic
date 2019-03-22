@@ -1,0 +1,27 @@
+{
+  "name": "homework4-Creswell",
+  "version": "1.0.0",
+  "description": "Homework 4",
+  "main": "index.js",
+  "scripts": {
+    "start": "node_modules/.bin/webpack-dev-server --mode=development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MissouriState-CSC515-Spring2019/Homework4-ccreswell97.git"
+  },
+  "author": "Carmen Creswell <carmen12@live.missouristate.edu>",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "git+https://github.com/MissouriState-CSC515-Spring2019/Homework4-ccreswell97.git"
+  },
+  "homepage": "https://github.com/MissouriState-CSC515-Spring2019/Homework4-ccreswell97#readme",
+  "dependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.28.4",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.2.1"
+  }
+}

@@ -16,7 +16,13 @@ module.exports = (env, args) => {
         template: './src/index.html'
       })],
     devServer: {
-      https: false
+      https: false,
+      before: function(app, server) {
+        app.get('/', function(req, res) {
+          res.json({ custom: 'response' });
+        });
+      }
     }
-  };
-};
+  }
+
+}

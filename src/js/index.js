@@ -3,14 +3,9 @@
 
 'use strict';
 
-import { get } from "https";
-
-let currentDate = new Date();
 let otherDate = new Date();
 let loadingImg = document.getElementById("loader");
 let eventsDateHolder = document.getElementById('eventDateHolder');
-
-addEventListeners();
 
 function getEvents(url) {
     fetch(url)
@@ -19,9 +14,7 @@ function getEvents(url) {
 
         if (!response.ok) {
             document.getElementById("errorHolder").innerHTML = status + " " + response.statusText + ". Refresh to continue";
-            //renderHome();
             loadingImg.style.display='none';
-            addEventListeners();
             return
         }
 
@@ -41,7 +34,6 @@ function getEvents(url) {
             }
         })
     })
-    
     .catch(function(error) {
         loadingImg.style.display='none';
         console.log(error);
@@ -69,22 +61,15 @@ window.addEventListener('popstate', () => {
 }, false);
 
 function renderIndex(url) {
-    console.log(url);
     let date = new Date(url); 
-    console.log(date);
 
     let day = date.getDate();
     let month = date.getMonth() + 1; // add one to accomodate the 0 indexed months
     let year = date.getFullYear();
 
-    console.log(day);
-    console.log(month);
-    console.log(year);
-
     eventsDateHolder.innerText = month + "/" + day + "/" + year;
 
     let urlToPass = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
-    console.log(urlToPass);
 	getEvents(urlToPass);
 }
 
@@ -94,7 +79,6 @@ function render404() {
 
 function renderHome() {
     let date = new Date(); 
-    console.log(date);
 
     let day = date.getDate();
     let month = date.getMonth() + 1; // add one to accomodate the 0 indexed months
@@ -106,11 +90,6 @@ function renderHome() {
 
     eventsDateHolder.innerText = month + "/" + day + "/" + year;
 
-    addEventListeners();
-
-}
-
-function addEventListeners() {
     let back = document.getElementById("left-button");
     let forward = document.getElementById("right-button");
 
@@ -129,7 +108,6 @@ function addEventListeners() {
         history.pushState({}, null, "/" + month + "-" + day + "-" + year);
         eventsDateHolder.innerText = month + "/" + day + "/" + year;
         getEvents(url);
-        
     })
 
     forward.addEventListener("click", function() {

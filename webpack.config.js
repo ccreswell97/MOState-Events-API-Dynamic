@@ -17,11 +17,14 @@ module.exports = (env, args) => {
       })],
     devServer: {
       https: false,
-      before: function(app, server) {
-        app.get('/', function(req, res) {
-          res.json({ custom: 'response' });
-        });
-      }
+      before(app) {
+				app.use((req, res, next) => {
+					if (/\/\d+\-\d+\-\d+/.test(req.url)) {
+						req.url = '/';
+					}
+					next();
+				});
+			}
     }
   }
 

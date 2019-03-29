@@ -10,16 +10,7 @@ let otherDate = new Date();
 let loadingImg = document.getElementById("loader");
 let eventsDateHolder = document.getElementById('eventDateHolder');
 
-let mill = currentDate.getTime();
-
-//let url = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
-//eventsDateHolder.innerText = month + "/" + day + "/" + year;
-
-// history.pushState()
-// triggerUrlChanged() - get date out of the URL
-// popstate
-
-//getEvents(url);
+addEventListeners();
 
 function getEvents(url) {
     fetch(url)
@@ -29,7 +20,9 @@ function getEvents(url) {
         if (!response.ok) {
             document.getElementById("errorHolder").innerHTML = status + " " + response.statusText + ". Refresh to continue";
             //renderHome();
-            //return
+            loadingImg.style.display='none';
+            addEventListeners();
+            return
         }
 
         response.json().then(function(data) {
@@ -88,6 +81,8 @@ function renderIndex(url) {
     console.log(month);
     console.log(year);
 
+    eventsDateHolder.innerText = month + "/" + day + "/" + year;
+
     let urlToPass = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
     console.log(urlToPass);
 	getEvents(urlToPass);
@@ -108,6 +103,14 @@ function renderHome() {
     let urlToPass = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
 
     getEvents(urlToPass);
+
+    eventsDateHolder.innerText = month + "/" + day + "/" + year;
+
+    addEventListeners();
+
+}
+
+function addEventListeners() {
     let back = document.getElementById("left-button");
     let forward = document.getElementById("right-button");
 
@@ -116,34 +119,34 @@ function renderHome() {
         loadingImg.style.display='inline';
 
         otherDate.setDate(otherDate.getDate() - 1);
-    
+
         let day = otherDate.getDate();
         let month = otherDate.getMonth() + 1; // add one to accomodate the 0 indexed months
         let year = otherDate.getFullYear();
-    
+
         let url = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
-    
+
         history.pushState({}, null, "/" + month + "-" + day + "-" + year);
-        //eventsDateHolder.innerText = month + "/" + day + "/" + year;
+        eventsDateHolder.innerText = month + "/" + day + "/" + year;
         getEvents(url);
         
     })
-  
+
     forward.addEventListener("click", function() {
         deleteEvents();
         loadingImg.style.display='inline';
 
         otherDate.setDate(otherDate.getDate() + 1);
-    
+
         let day = otherDate.getDate();
         let month = otherDate.getMonth() + 1; // add one to accomodate the 0 indexed months
         let year = otherDate.getFullYear();
-    
+
         let url = 'http://people.missouristate.edu/chadkillingsworth/csc590/calendar/?date=' + month + "/" + day + "/" + year;
         
         history.pushState({}, null, "/" + month + "-" + day + "-" + year);
-        //eventsDateHolder.innerText = month + "/" + day + "/" + year;
-    
+        eventsDateHolder.innerText = month + "/" + day + "/" + year;
+
         getEvents(url);
     })
 }
